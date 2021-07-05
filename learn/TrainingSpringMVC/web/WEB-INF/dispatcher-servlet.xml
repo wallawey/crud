@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+<!-- Action Handling -->
+    <!-- BeanNameUrlHandlerMapping
+        This configuration is optional because BeanNameUrlHandlerMapping is the default handler.
+        In case no handler mapping is found in the web application context, SpringMVC will create an instance of BeanNameUrlHandlerMapping.
+    -->
+    <bean name="beanNameUrlHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <!-- SimpleUrlHandlerMapping
+        The BeanNameUrlHandlerMapping class does not support wildcards to resolve a request URL to a bean name.
+        Configuration can be simplified with Apache Ant–style wildcard path mapping with the SimpleUrlHandlerMapping.
+
+    <bean name="simpleUrlHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/*.html"></prop>
+            </props>
+        </property>
+    </bean>
+    -->
+    <!-- ControllerClassNameHandlerMapping
+
+    <bean name="controllerClassNameHandlerMapping" class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+    -->
+<!-- end of Action Handling -->
+
+
+<!-- View Handler -->
+    <!-- InternalResourceViewResolver
+    The InternalResourceViewResolver class can determine the physical view in the web application archive given the logical view name.
+    -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
+    <!-- ResourceBundleViewResolver
+        It allows the logical view name to physical resource mapping to be configured in externalized properties or resource bundle files.
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+        <property name="basename" value=""/>
+    </bean>
+    -->
+    <!-- XmlViewResolver
+        To use an XML-based view resolver, configuration information should be moved in XML files from the properties file.
+        This view configuration file should be located in the WEB-INF folder and is called views.xml by default.
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver"/>
+    -->
+<!-- end of View Handler -->
+
+
+<!-- Page Controller -->
+    <bean name="/index.html"
+          class="training.springmvc.crud.controller.IndexController"
+          p:personService="personService"
+          p:personService-ref="personService"/>
+
+    <bean name="/view.html"
+          class="training.springmvc.crud.controller.ViewPersonController"
+          p:personService="personService"
+          p:personService-ref="personService"/>
+
+    <bean name="/add.html"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="personEdit"/>
+
+    <bean name="/update.html"
+          class="training.springmvc.crud.controller.UpdatePersonController"
+          p:personService="personService"
+          p:personService-ref="personService"/>
+
+    <bean name="/save.html"
+          class="training.springmvc.crud.controller.SavePersonController"
+          p:personService="personService"
+          p:personService-ref="personService"/>
+
+    <bean name="/delete.html"
+          class="training.springmvc.crud.controller.DeletePersonController"
+          p:personService="personService"
+          p:personService-ref="personService"/>
+<!-- end of Page Controller -->
+
+</beans>
