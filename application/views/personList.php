@@ -16,7 +16,7 @@
 <body>
 	<div class="content">
 	<center>
-		<h1>Simple CRUD Application</h1>
+		<h1>CRUD Application</h1>
 		<?php /*echo $recd;*/ ?>
 		<div id="pagination_to_load" class="paging"><?php echo $pagination; ?></div>
 <!-- 		<div id="pagination_to_load" class="paging"></div> -->
